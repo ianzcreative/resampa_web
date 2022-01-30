@@ -491,7 +491,7 @@ header('Content-Type: application/json');
          $check_match = count(array_intersect_key($_POST, $check));         
          if($check_match == count($check)){
          
-            $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah = tbl_saldo.jml_saldo_nasabah - $_POST[saldo_pending] WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
+            $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah = tbl_saldo.jml_saldo_nasabah - '$_POST[saldo_pending]' WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
          
             if($result && $_GET["key"] == $key_match)
             {
@@ -532,7 +532,7 @@ header('Content-Type: application/json');
          $check_match = count(array_intersect_key($_POST, $check));         
          if($check_match == count($check)){
          
-            $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah = tbl_saldo.jml_saldo_nasabah + $_POST[saldo_pending] WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
+            $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah = tbl_saldo.jml_saldo_nasabah + '$_POST[saldo_pending]' WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
          
             if($result && $_GET["key"] == $key_match)
             {
