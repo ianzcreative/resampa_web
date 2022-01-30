@@ -451,16 +451,16 @@ header('Content-Type: application/json');
    function update_saldo_min()
       {
          global $connect;
-         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["saldo_nasabah"])) {
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["jml_saldo_nasabah"])) {
              $nik_nasabah = $_GET["nik_nasabah"];
-             $saldo_nasabah = $_GET["saldo_nasabah"];
+             $jml_saldo_nasabah = $_GET["jml_saldo_nasabah"];
          }
          
-         $check = array('nik_nasabah' => '', 'saldo_nasabah' => '');
+         $check = array('nik_nasabah' => '', 'jml_saldo_nasabah' => '');
          $check_match = count(array_intersect_key($_POST, $check));         
          if($check_match == count($check)){
          
-              $result = mysqli_query($connect, "UPDATE tbl_saldo SET ipaddress='$_POST[ipaddress]', device='$_POST[device]', device_number='$_POST[device_number]' WHERE id='$_POST[id]'");
+              $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah='$_POST[jml_saldo_nasabah]' WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
          
             if($result)
             {
