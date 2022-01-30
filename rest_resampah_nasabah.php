@@ -477,21 +477,62 @@ header('Content-Type: application/json');
          echo json_encode($response);
       }
 
-   function update_saldo_min()
+   function update_saldo_transaksi_qr_owner()
       {
          global $connect;
 	   	 $key_match = "12H6383H3";
 	   
-         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["jml_saldo_nasabah"]) && !empty($_GET["key"])) {
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["saldo_pending"]) && !empty($_GET["key"])) {
              $nik_nasabah = $_GET["nik_nasabah"];
-             $jml_saldo_nasabah = $_GET["jml_saldo_nasabah"];
+             $saldo_pending = $_GET["saldo_pending"];
          }
          
-         $check = array('nik_nasabah' => '', 'jml_saldo_nasabah' => '');
+         $check = array('nik_nasabah' => '', 'saldo_pending' => '');
          $check_match = count(array_intersect_key($_POST, $check));         
          if($check_match == count($check)){
          
-              $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah='$_POST[jml_saldo_nasabah]' WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
+            $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah = tbl_saldo.jml_saldo_nasabah - $_POST[saldo_pending] WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
+         
+            if($result && $_GET["key"] == $key_match)
+            {
+               $response=array(
+                  'status' => 1,
+                  'message' =>'Update Success'                  
+               );
+            }
+            else
+            {
+               $response=array(
+                  'status' => 0,
+                  'message' =>'Update Failed'                  
+               );
+            }
+         }else{
+            $response=array(
+                     'status' => 0,
+                     'message' =>'Wrong Parameter',
+                     'data'=> $id
+                  );
+         }
+         header('Content-Type: application/json');
+         echo json_encode($response);
+      }
+
+   function update_saldo_transaksi_qr_target()
+      {
+         global $connect;
+	   	 $key_match = "12H6383H3";
+	   
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["saldo_pending"]) && !empty($_GET["key"])) {
+             $nik_nasabah = $_GET["nik_nasabah"];
+             $saldo_pending = $_GET["saldo_pending"];
+         }
+         
+         $check = array('nik_nasabah' => '', 'saldo_pending' => '');
+         $check_match = count(array_intersect_key($_POST, $check));         
+         if($check_match == count($check)){
+         
+            $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah = tbl_saldo.jml_saldo_nasabah + $_POST[saldo_pending] WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
          
             if($result && $_GET["key"] == $key_match)
             {
