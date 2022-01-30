@@ -349,6 +349,35 @@ header('Content-Type: application/json');
       
       echo json_encode($response);
    }
+
+   function get_informasi()
+   {
+      global $connect;      
+      $key = "12H6383H3";
+      
+      
+      $query = $connect->query("SELECT * FROM tbl_info");            
+      while($row=mysqli_fetch_object($query)) {
+         $data[] =$row;
+      }
+      
+      if($data && $_GET["key"] == $key) {
+          
+        $response = array(
+                     'status' => 1,
+                     'message' =>'Success',
+                     'data' => $data
+                  );
+      } else {
+          
+        $response = array(
+                     'status' => 0,
+                     'message' =>'No Data Found'
+                  );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }  
    
    function insert_register()
    {
