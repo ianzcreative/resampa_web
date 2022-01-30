@@ -451,18 +451,16 @@ header('Content-Type: application/json');
    function update_saldo_min()
       {
          global $connect;
-         if (!empty($_GET["nik_nasabah"]) && && !empty($_GET["saldo_nasabah"])) {
-             $id = $_GET["id"];
-             $ipaddress = $_GET["ipaddress"];
-             $device = $_GET["device"];
-             $device_number = $_GET["device_number"];
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["saldo_nasabah"])) {
+             $nik_nasabah = $_GET["nik_nasabah"];
+             $saldo_nasabah = $_GET["saldo_nasabah"];
          }
          
-         $check = array('id' => '', 'ipaddress' => '', 'device' => '', 'device_number' => '');
+         $check = array('nik_nasabah' => '', 'saldo_nasabah' => '');
          $check_match = count(array_intersect_key($_POST, $check));         
          if($check_match == count($check)){
          
-              $result = mysqli_query($connect, "UPDATE app_users SET ipaddress='$_POST[ipaddress]', device='$_POST[device]', device_number='$_POST[device_number]' WHERE id='$_POST[id]'");
+              $result = mysqli_query($connect, "UPDATE tbl_saldo SET ipaddress='$_POST[ipaddress]', device='$_POST[device]', device_number='$_POST[device_number]' WHERE id='$_POST[id]'");
          
             if($result)
             {
