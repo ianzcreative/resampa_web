@@ -451,7 +451,9 @@ header('Content-Type: application/json');
    function update_saldo_min()
       {
          global $connect;
-         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["jml_saldo_nasabah"])) {
+	   	 $key = "12H6383H3";
+	   
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["jml_saldo_nasabah"]) && !empty($_GET["key"])) {
              $nik_nasabah = $_GET["nik_nasabah"];
              $jml_saldo_nasabah = $_GET["jml_saldo_nasabah"];
          }
@@ -462,7 +464,7 @@ header('Content-Type: application/json');
          
               $result = mysqli_query($connect, "UPDATE tbl_saldo LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_saldo.id_nasabah SET tbl_saldo.jml_saldo_nasabah='$_POST[jml_saldo_nasabah]' WHERE tbl_nasabah.nik_nasabah='$_POST[nik_nasabah]'");
          
-            if($result)
+            if($result && $_GET["key"] == $key)
             {
                $response=array(
                   'status' => 1,
