@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/platiniu/sv-resa.platiniumlogistic.com/
+    - export DEPLOYPATH=/home/platiniu/sv-resa.platiniumlogistic.com
     - /bin/cp -r * $DEPLOYPATH​
