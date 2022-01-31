@@ -262,7 +262,7 @@ header('Content-Type: application/json');
 		$array_data = $data;
           
         $response = array('response'=> 
-						array( array('status'=>'1','message'=>'Success', 'datum'=>$datum), 
+						array( array('status'=>'1','message'=>'Success', 'datum'=>'$datum'), 
 
 							   'data'=>array($data)
 					     )
