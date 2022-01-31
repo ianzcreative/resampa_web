@@ -261,13 +261,11 @@ header('Content-Type: application/json');
 		  
 		$array_data = $data;
           
-        $response = array('response' => array(
-						 'status' => 1,
-						 'message' =>'Success',
-						 'datum' => $datum
-					     ),
-		  				 'data' => $data	
-				   );
+        $response = array('response'=> 
+						array( array('status'=>'1','message'=>'Success', 'datum'=>'$datum'), 
+
+							   'data'=>array($data)
+					);
       } else {
           
         $response = array(
