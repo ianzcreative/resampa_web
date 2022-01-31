@@ -253,19 +253,17 @@ header('Content-Type: application/json');
 		  
 		  while($row=mysqli_fetch_object($query2)) {
 			  $data[] = $row;
+			  echo json_encode($row);
 		  }
 		  
       }
       
       if($data && $_GET["key"] == $key) {
-		  
-		$array_data = $data;
           
         $response = array(
                      'status' => 1,
                      'message' =>'Success',
-			         'datum' => $datum,
-					 'data' => $array_data
+			         'datum' => $datum
                   );
       } else {
           
