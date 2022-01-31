@@ -259,9 +259,7 @@ header('Content-Type: application/json');
       
       if($data && $_GET["key"] == $key) {
 		  
-		$array_data = array(
-			     $data
-			  );
+		$array_data = $data
           
         $response = array(
                      'status' => 1,
