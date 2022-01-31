@@ -231,6 +231,44 @@ header('Content-Type: application/json');
       header('Content-Type: application/json');
       echo json_encode($response);
    }
+
+   function get_daftar_transaksi_sampah_nasabah()
+   {
+      global $connect;      
+      $key = "12H6383H3";
+      
+      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"])) {
+         $nik = $_GET["nik_nasabah"];
+      } 
+     
+      $query = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah, tbl_sampah.nama_sampah, tbl_kategori_sampah.nama_kategori_sampah, tbl_sampah.harga_sampah FROM tbl_transaksi_sampah \n"
+
+    . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah \n"
+
+    . "JOIN tbl_item_transaksi_sampah ON tbl_transaksi_sampah.id_transaksi_sampah = tbl_item_transaksi_sampah.id_transaksi_sampah JOIN tbl_sampah ON tbl_item_transaksi_sampah.id_sampah = tbl_sampah.id_sampah JOIN tbl_kategori_sampah ON tbl_kategori_sampah.id_kategori_sampah = tbl_sampah.id_kategori_sampah \n"
+
+    . "WHERE tbl_nasabah.nik_nasabah ='".$nik."'");            
+      while($row=mysqli_fetch_object($query)) {
+         $data[] =$row;
+      }
+      
+      if($data && $_GET["key"] == $key) {
+          
+        $response = array(
+                     'status' => 1,
+                     'message' =>'Success',
+                     'data' => $data
+                  );
+      } else {
+          
+        $response = array(
+                     'status' => 0,
+                     'message' =>'No Data Found'
+                  );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
       
    function get_provinsi()
    {
