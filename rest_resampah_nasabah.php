@@ -247,7 +247,7 @@ header('Content-Type: application/json');
 	     
 	   
       while($row=mysqli_fetch_object($query)) {
-         $data[] = $row->id_transaksi_sampah;
+         $datax[] = $row->id_transaksi_sampah;
 		 
 		 $query2 = $connect->query("SELECT tbl_item_transaksi_sampah.id_item_transaksi_sampah, tbl_item_transaksi_sampah.id_transaksi_sampah, tbl_sampah.nama_sampah, tbl_sampah.harga_sampah, tbl_kategori_sampah.nama_kategori_sampah FROM tbl_item_transaksi_sampah JOIN tbl_sampah ON tbl_item_transaksi_sampah.id_sampah = tbl_sampah.id_sampah JOIN tbl_kategori_sampah ON tbl_kategori_sampah.id_kategori_sampah = tbl_sampah.id_kategori_sampah WHERE tbl_item_transaksi_sampah.id_transaksi_sampah ='".$row->id_transaksi_sampah."'");
 		  
@@ -262,6 +262,7 @@ header('Content-Type: application/json');
         $response = array(
                      'status' => 1,
                      'message' =>'Success',
+			         'datax' => $datax,
                      'data' => $data
                   );
       } else {
