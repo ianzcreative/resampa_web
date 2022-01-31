@@ -267,10 +267,10 @@ header('Content-Type: application/json');
 						 'datum' => $datum
 					     ),
 		  				 'data' => array(
-							 'id_transaksi_sampah' => $data->id_transaksi_sampah,
-							 'nama_sampah' => $data->nama_sampah,
-							 'kategori_sampah' => $data->kategori_sampah,
-							 'harga_sampah' => $data->harga_sampah
+							 'id_transaksi_sampah' => $array_data->id_transaksi_sampah,
+							 'nama_sampah' => $array_data->nama_sampah,
+							 'kategori_sampah' => $array_data->kategori_sampah,
+							 'harga_sampah' => $array_data->harga_sampah
 						 )
 							
 				   );
