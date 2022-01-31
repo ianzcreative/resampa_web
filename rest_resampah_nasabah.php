@@ -262,8 +262,8 @@ header('Content-Type: application/json');
         $response = array(
 						 'status' => 1,
 						 'message' => 'Success',
-						 'datum' => $datum, 
-           				 'data' => $data
+						 'data_transaksi' => $datum, 
+           				 'data_katalog' => $data
 				   );
       } else {
           
