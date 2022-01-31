@@ -262,14 +262,10 @@ header('Content-Type: application/json');
 		$array_data = $data;
           
         $response = array(
-				       array(
 						 'status' => 1,
 						 'message' =>'Success',
-						 'datum' => $datum
-                       ), 
-					   array(
-						  'data' => $data
-					   )
+						 'datum' => $datum,
+						 'data' => array($data)
 				   );
       } else {
           
