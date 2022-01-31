@@ -266,13 +266,7 @@ header('Content-Type: application/json');
 						 'message' =>'Success',
 						 'datum' => $datum
 					     ),
-		  				 'data' => array(
-							 'id_transaksi_sampah' => $array_data->id_transaksi_sampah,
-							 'nama_sampah' => $array_data->nama_sampah,
-							 'kategori_sampah' => $array_data->kategori_sampah,
-							 'harga_sampah' => $array_data->harga_sampah
-						 )
-							
+		  				 'data' => $data	
 				   );
       } else {
           
