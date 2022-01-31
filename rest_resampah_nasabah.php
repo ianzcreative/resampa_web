@@ -258,14 +258,16 @@ header('Content-Type: application/json');
       }
       
       if($data && $_GET["key"] == $key) {
+		  
+		$array_data = array(
+			     'data' => $data
+			  );
           
         $response = array(
                      'status' => 1,
                      'message' =>'Success',
 			         'datum' => $datum,
-                     array(
-						 'data' => $data
-						)
+					 'data' => $array_data
                   );
       } else {
           
