@@ -263,7 +263,9 @@ header('Content-Type: application/json');
                      'status' => 1,
                      'message' =>'Success',
 			         'datum' => $datum,
-                     'data' => $data
+                     array(
+						 'data' => $data
+						);
                   );
       } else {
           
