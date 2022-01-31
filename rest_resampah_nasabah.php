@@ -265,7 +265,7 @@ header('Content-Type: application/json');
 			         'datum' => $datum,
                      array(
 						 'data' => $data
-						);
+						)
                   );
       } else {
           
