@@ -260,7 +260,7 @@ header('Content-Type: application/json');
       if($data && $_GET["key"] == $key) {
 		  
 		$array_data = array(
-			     'data' => $data
+			     $data
 			  );
           
         $response = array(
