@@ -241,7 +241,7 @@ header('Content-Type: application/json');
          $nik = $_GET["nik_nasabah"];
       } 
      
-      $query = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah, tbl_sampah.nama_sampah, tbl_kategori_sampah.nama_kategori_sampah, tbl_sampah.harga_sampah FROM tbl_transaksi_sampah \n"
+      $query = $connect->query("SELECT DISTINCT(tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah, tbl_sampah.nama_sampah, tbl_kategori_sampah.nama_kategori_sampah, tbl_sampah.harga_sampah) FROM tbl_transaksi_sampah \n"
 
     . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah \n"
 
