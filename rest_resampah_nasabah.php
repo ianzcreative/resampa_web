@@ -264,8 +264,15 @@ header('Content-Type: application/json');
         $response = array(
 						 'status' => 1,
 						 'message' =>'Success',
-						 'datum' => $datum,
-						 'data' => $data
+						 'datum' => $datum
+					     ),
+		  				 'data' => array(
+							 'id_transaksi_sampah' => $data->id_transaksi_sampah,
+							 'nama_sampah' => $data->nama_sampah,
+							 'kategori_sampah' => $data->kategori_sampah,
+							 'harga_sampah' => $data->harga_sampah
+						 )
+							
 				   );
       } else {
           
