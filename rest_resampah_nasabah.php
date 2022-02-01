@@ -251,16 +251,16 @@ header('Content-Type: application/json');
         if ($result->num_rows > 0 && $_GET["key"] == $key) {
             $resultArr = array('success' => true, 'total' => $result->num_rows);
             while($row = $result->fetch_assoc()) {
-                $resultArr['data'][$row['id_transaksi_sampah']] = array('id_transaksi_sampah' => $row['id_transaksi_sampah'], 'subtotal_transaksi_sampah' => $row['subtotal_transaksi_sampah'], 'tgl_transaksi_sampah' => $row['tgl_transaksi_sampah'], 'catatan_transaksi_sampah' => $row['catatan_transaksi_sampah'], 'id_nasabah' => $row['id_nasabah']);
+                $resultArr['data_transaksi'][$row['id_transaksi_sampah']] = array('id_transaksi_sampah' => $row['id_transaksi_sampah'], 'subtotal_transaksi_sampah' => $row['subtotal_transaksi_sampah'], 'tgl_transaksi_sampah' => $row['tgl_transaksi_sampah'], 'catatan_transaksi_sampah' => $row['catatan_transaksi_sampah'], 'id_nasabah' => $row['id_nasabah']);
 
                 //Anwser table results
                 $sql2 = "SELECT tbl_sampah.nama_sampah, tbl_sampah.harga_sampah, tbl_kategori_sampah.nama_kategori_sampah FROM tbl_item_transaksi_sampah JOIN tbl_sampah ON tbl_item_transaksi_sampah.id_sampah = tbl_sampah.id_sampah JOIN tbl_kategori_sampah ON tbl_kategori_sampah.id_kategori_sampah = tbl_sampah.id_kategori_sampah WHERE tbl_item_transaksi_sampah.id_transaksi_sampah = '".$row['id_transaksi_sampah']."'";
                 $result2 = $connect->query($sql2);
                 while($row2 = $result2->fetch_assoc()) {
-                    $resultArr['data'][$row['id_transaksi_sampah']]['data_katalog'][] = $row2;
+                    $resultArr['data_transaksi'][$row['id_transaksi_sampah']]['data_katalog'][] = $row2;
                 }
             }
-            $resultArr['data'] = array_values($resultArr['data']);
+            $resultArr['data_transaksi'] = array_values($resultArr['data_transaksi']);
         } else {
             $resultArr = array('success' => false, 'total' => 0);
             echo "question 0 results";
