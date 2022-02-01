@@ -242,10 +242,10 @@ header('Content-Type: application/json');
       } 
 
      $resultArr = array();
-      $query = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah FROM tbl_transaksi_sampah \n"
+      $result = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah FROM tbl_transaksi_sampah \n"
 
     . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah ='".$nik."'"); 
-     $result = $conn->query($query); 
+   //  $result = $conn->query($query); 
 	     
       
         if ($result->num_rows > 0 && $_GET["key"] == $key) {
@@ -255,7 +255,7 @@ header('Content-Type: application/json');
 
                 //Anwser table results
                 $sql2 = "SELECT tbl_sampah.nama_sampah, tbl_sampah.harga_sampah, tbl_kategori_sampah.nama_kategori_sampah FROM tbl_item_transaksi_sampah JOIN tbl_sampah ON tbl_item_transaksi_sampah.id_sampah = tbl_sampah.id_sampah JOIN tbl_kategori_sampah ON tbl_kategori_sampah.id_kategori_sampah = tbl_sampah.id_kategori_sampah WHERE tbl_item_transaksi_sampah.id_transaksi_sampah = '".$row['id_transaksi_sampah']."'";
-                $result2 = $conn->query($sql2);
+                $result2 = $connect->query($sql2);
                 while($row2 = $result2->fetch_assoc()) {
                     $resultArr['data'][$row['id_transaksi_sampah']]['data_katalog'][] = $row2;
                 }
