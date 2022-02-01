@@ -244,7 +244,7 @@ header('Content-Type: application/json');
      $resultArr = array();
       $result = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah, SUM(tbl_item_transaksi_sampah.jumlah_item_transaksi) AS jm_items FROM tbl_transaksi_sampah \n"
 
-    . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah JOIN tbl_item_transaksi_sampah ON tbl_transaksi_sampah.id_transaksi_sampah = tbl_item_transaksi_sampah.id_transaksi_sampah WHERE tbl_nasabah.nik_nasabah ='".$nik."' ORDER BY id_transaksi_sampah DESC"); 
+    . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah JOIN tbl_item_transaksi_sampah ON tbl_transaksi_sampah.id_transaksi_sampah = tbl_item_transaksi_sampah.id_transaksi_sampah WHERE tbl_nasabah.nik_nasabah ='".$nik."' GROUP BY tbl_transaksi_sampah.id_transaksi_sampah ORDER BY id_transaksi_sampah DESC"); 
    //  $result = $conn->query($query); 
 	     
       
