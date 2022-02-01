@@ -263,7 +263,7 @@ header('Content-Type: application/json');
             $resultArr['data_transaksi'] = array_values($resultArr['data_transaksi']);
         } else {
             $resultArr = array('success' => false, 'total' => 0);
-            echo "question 0 results";
+           // echo "question 0 results";
         }
 	    header('Content-Type: application/json');
         echo json_encode($resultArr);
