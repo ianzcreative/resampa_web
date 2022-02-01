@@ -245,7 +245,7 @@ header('Content-Type: application/json');
       $query = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah FROM tbl_transaksi_sampah \n"
 
     . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah ='".$nik."'"); 
-     $result = $conn->query($sql); 
+     $result = $conn->query($query); 
 	     
       
         if ($result->num_rows > 0 && $_GET["key"] == $key) {
