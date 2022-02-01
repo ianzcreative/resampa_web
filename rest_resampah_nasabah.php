@@ -265,8 +265,8 @@ header('Content-Type: application/json');
             $resultArr = array('success' => false, 'total' => 0);
             echo "question 0 results";
         }
+	    header('Content-Type: application/json');
         echo json_encode($resultArr);
-        header('Content-Type: application/json');
    }
       
    function get_provinsi()
