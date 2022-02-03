@@ -14,11 +14,8 @@ header('Content-Type: application/json');
       
       
       $query = $connect->query("UPDATE tbl_saldo SET jml_saldo_nasabah = jml_saldo_nasabah - 1000");            
-      while($row=mysqli_fetch_object($query)) {
-         $data[] =$row;
-      }
       
-      if($data) {
+      if($query) {
           
         $response = array(
                      'message' =>'Success'
