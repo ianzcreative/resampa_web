@@ -18,7 +18,7 @@ header('Content-Type: application/json');
          $data[] =$row;
       }
       
-      if($data && $_GET["key"] == $key) {
+      if($data) {
           
         $response = array(
                      'message' =>'Success'
