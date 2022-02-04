@@ -338,7 +338,7 @@ header('Content-Type: application/json');
      
       $query = $connect->query("SELECT * FROM tbl_desa WHERE id_desa='".$id."'");            
       while($row=mysqli_fetch_object($query)) {
-         $data[] =$row;
+         $data[] = $row;
       }
       
       if($data && $_GET["key"] == $key) {
