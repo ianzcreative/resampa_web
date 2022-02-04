@@ -336,7 +336,7 @@ header('Content-Type: application/json');
          $id = $_GET["id"];
       } 
      
-      $query = $connect->query("SELECT * FROM tbl_desa WHERE id_desa='".$id."'");            
+      $query = $connect->query("SELECT id_desa, nama_desa, kecamatan_desa, kabupaten_desa, provinsi_desa, kode_pos_desa, gambar_desa FROM tbl_desa WHERE id_desa='".$id."'");            
       while($row=mysqli_fetch_object($query)) {
          $data[] = $row;
       }
