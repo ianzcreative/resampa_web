@@ -199,6 +199,38 @@ header('Content-Type: application/json');
       header('Content-Type: application/json');
       echo json_encode($response);
    }
+
+   function get_riwayat_saldo_nasabah()
+   {
+      global $connect;      
+      $key = "12H6383H3";
+      
+      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"])) {
+         $nik = $_GET["nik_nasabah"];
+      } 
+     
+      $query = $connect->query("SELECT DISTINCT(tbl_nasabah.id_nasabah), tbl_saldo_monthly.jml_saldo_monthly, tbl_saldo_monthly.starting_date_monthly, tbl_saldo_monthly.end_date_monthly FROM `tbl_saldo_monthly` LEFT JOIN tbl_nasabah ON tbl_saldo_monthly.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah = '".$nik."'");            
+      while($row=mysqli_fetch_object($query)) {
+         $data[] =$row;
+      }
+      
+      if($data && $_GET["key"] == $key) {
+          
+        $response = array(
+                     'status' => 1,
+                     'message' =>'Success',
+                     'data' => $data
+                  );
+      } else {
+          
+        $response = array(
+                     'status' => 0,
+                     'message' =>'No Data Found'
+                  );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
    
    function get_setor_sampah_nasabah()
    {
