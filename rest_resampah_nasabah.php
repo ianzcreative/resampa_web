@@ -205,9 +205,9 @@ header('Content-Type: application/json');
       global $connect;      
       $key = "12H6383H3";
       
-      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"]) && !empty($_GET["dates"])) {
+      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"]) && !empty($_GET["starting_date_month"])) {
          $nik = $_GET["nik_nasabah"];
-		 $parts = explode('-', $_GET["dates"]);
+		 $parts = explode('-', $_GET["starting_date_month"]);
 		 $year = $parts[0];
 		 $month = $parts[1];
       } 
