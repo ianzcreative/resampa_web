@@ -205,11 +205,14 @@ header('Content-Type: application/json');
       global $connect;      
       $key = "12H6383H3";
       
-      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"])) {
+      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"]) && !empty($_GET["dates"])) {
          $nik = $_GET["nik_nasabah"];
+		 $parts = explode('-', $_GET["dates"]);
+		 $year = $parts[0];
+		 $month = $parts[1];
       } 
      
-      $query = $connect->query("SELECT DISTINCT(tbl_nasabah.id_nasabah), tbl_saldo_monthly.jml_saldo_monthly, tbl_saldo_monthly.starting_date_monthly, tbl_saldo_monthly.end_date_monthly FROM `tbl_saldo_monthly` LEFT JOIN tbl_nasabah ON tbl_saldo_monthly.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah = '".$nik."'");            
+      $query = $connect->query("SELECT DISTINCT(tbl_nasabah.id_nasabah), tbl_saldo_monthly.jml_saldo_monthly, tbl_saldo_monthly.starting_date_monthly, tbl_saldo_monthly.end_date_monthly FROM `tbl_saldo_monthly` LEFT JOIN tbl_nasabah ON tbl_saldo_monthly.id_nasabah = tbl_nasabah.id_nasabah WHERE YEAR(starting_date_monthly) = '".$year."' AND MONTH(starting_date_monthly) = '".$month."' AND tbl_nasabah.nik_nasabah = '".$nik."'");            
       while($row=mysqli_fetch_object($query)) {
          $data[] =$row;
       }
