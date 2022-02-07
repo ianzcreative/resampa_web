@@ -17,7 +17,7 @@ header('Content-Type: application/json');
          $password = $_GET["password_nasabah"];
       } 
      
-      $query = $connect->query("SELECT tbl_nasabah.id, tbl_nasabah.nik_nasabah, tbl_user_type.id_type FROM tbl_nasabah LEFT JOIN tbl_user_type ON tbl_nasabah.id_type = tbl_user_type.id_type WHERE tbl_nasabah.nik_nasabah='".$username."' and tbl_nasabah.password_nasabah='".$password."'");            
+      $query = $connect->query("SELECT tbl_nasabah.id_nasabah, tbl_nasabah.nik_nasabah, tbl_user_type.id_type FROM tbl_nasabah LEFT JOIN tbl_user_type ON tbl_nasabah.id_type = tbl_user_type.id_type WHERE tbl_nasabah.nik_nasabah='".$username."' and tbl_nasabah.password_nasabah='".$password."'");            
       while($row=mysqli_fetch_object($query)) {
          $data[] =$row;
       }
