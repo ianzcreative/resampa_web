@@ -15,6 +15,8 @@ header('Content-Type: application/json');
 			 $body = $_GET["body"];
 			 $topic = $_GET["topic"];
 			 
+			 $now = date_create()->format('Y-m-d');
+			 
 			 $img = $_GET["img"];
          }
 		
@@ -24,7 +26,7 @@ header('Content-Type: application/json');
 		$id_token = $row['id_token'];
 		$token = $row['token'];
 		
-		$query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, topics, id_token) VALUES('".$title."', '".$body."', '".$topic."', '".$id_token."')");
+		$query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, topics, tanggal, id_token) VALUES('".$title."', '".$body."', '".$topic."', '".$now."', '".$id_token."')");
          
             if($query_insert)
             {
