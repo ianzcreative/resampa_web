@@ -61,7 +61,7 @@ header('Content-Type: application/json');
 				'include_player_ids' => array($to),
 				'large_icon' => 'https://sv-resa.platiniumlogistic.com/image/maskot.png',
 				'content_available' => true,
-				'android_channel_id' => '72d1812d-8a52-48a3-adee-76f0e17c47a5'
+				'android_channel_id' => '72d1812d-8a52-48a3-adee-76f0e17c47a5',
 				'contents' => $content
 			);
 		} else {
@@ -76,7 +76,7 @@ header('Content-Type: application/json');
 				"big_picture" => $img,
 				'large_icon' => 'https://sv-resa.platiniumlogistic.com/image/maskot.png',
 				'content_available' => true,
-				'android_channel_id' => '72d1812d-8a52-48a3-adee-76f0e17c47a5'
+				'android_channel_id' => '72d1812d-8a52-48a3-adee-76f0e17c47a5',
 				"ios_attachments" => $ios_img
 			);
 
