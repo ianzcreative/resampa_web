@@ -2,6 +2,8 @@
 require_once "koneksi_resampah.php";
 header('Content-Type: application/json');
 
+date_default_timezone_set('Asia/Jakarta');
+
    if(function_exists($_GET['function'])) {
          $_GET['function']();
       }
