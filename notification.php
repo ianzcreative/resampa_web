@@ -6,7 +6,6 @@ header('Content-Type: application/json');
          $_GET['function']();
       }
 
-
 	function send_notif_to_nasabah()
 	{
 		 global $connect;
@@ -23,7 +22,7 @@ header('Content-Type: application/json');
          $check_match = count(array_intersect_key($_POST, $check));         
          if($check_match == count($check)){
          
-		 $query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi VALUES('$_POST[title]','$_POST[body]', '".$query_id->id_token."'");
+		 $query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, id_token) VALUES('$_POST[title]','$_POST[body]', '".$query_id->id_token."'");
          
             if($query_insert)
             {
