@@ -19,9 +19,8 @@ header('Content-Type: application/json');
 		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_token.id_nasabah WHERE tbl_nasabah.nik_nasabah='".$nik."'");
 		
 		$token = $query_id->id_token;
-		echo $token;
-         
-		 $query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, id_token) VALUES('".$title."', '".$body."', '".$token."')");
+		
+		$query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, id_token) VALUES('".$title."', '".$body."', '".$token."')");
          
             if($query_insert)
             {
@@ -40,8 +39,8 @@ header('Content-Type: application/json');
                );
             }
 		
-        // header('Content-Type: application/json');
-        // echo json_encode($response);
+        header('Content-Type: application/json');
+        echo json_encode($token);
 	} 
 
 	function send_notification($to, $title, $message, $img)
