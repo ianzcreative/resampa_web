@@ -9,7 +9,7 @@ header('Content-Type: application/json');
 	function send_notif_to_nasabah()
 	{
 		 global $connect;
-         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"]) && !empty($_GET["img"])) {
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"])) {
              $nik = $_GET["nik_nasabah"];
 			 $title = $_GET["title"];
 			 $body = $_GET["body"];
