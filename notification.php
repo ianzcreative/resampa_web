@@ -17,7 +17,7 @@ header('Content-Type: application/json');
          }
 		
 		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_token.id_nasabah WHERE tbl_nasabah.nik_nasabah='".$nik."'");
-		$row = mysql_fetch_assoc($query_id);
+		$row = mysqli_fetch_assoc($query_id);
 		
 		$token = $row['id_token'];
 		
