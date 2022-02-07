@@ -10,10 +10,11 @@ header('Content-Type: application/json');
 	function send_notif_to_nasabah()
 	{
 		 global $connect;
-         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"])) {
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"]) && !empty($_GET["img"])) {
              $nik = $_GET["nik_nasabah"];
 			 $title = $_GET["title"];
 			 $body = $_GET["body"];
+			 $img = $_GET["img"];
          }
 		
 		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_token.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah='".$nik."'");
@@ -31,7 +32,7 @@ header('Content-Type: application/json');
                   'message' =>'Send Notification Success'                  
                );
 				
-			   send_notification($title, $body, $query_id->id_token)
+			   send_notification($query_id->id_token, $title, $body, $img);
             }
             else
             {
