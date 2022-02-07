@@ -16,7 +16,7 @@ header('Content-Type: application/json');
 			 $img = $_GET["img"];
          }
 		
-		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_token.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah='".$nik."'");
+		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_token.id_nasabah WHERE tbl_nasabah.nik_nasabah='".$nik."'");
 		
 		$token = $query_id->id_token;
          
