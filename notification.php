@@ -44,8 +44,7 @@ header('Content-Type: application/json');
          }else{
             $response=array(
                      'status' => 0,
-                     'message' =>'Wrong Parameter',
-                     'data'=> $id
+                     'message' =>'Wrong Parameter'
                   );
          }
          header('Content-Type: application/json');
