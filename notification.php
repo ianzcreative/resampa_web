@@ -9,10 +9,12 @@ header('Content-Type: application/json');
 	function send_notif_to_nasabah()
 	{
 		 global $connect;
-         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"])) {
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"]) && !empty($_GET["topic"])) {
              $nik = $_GET["nik_nasabah"];
 			 $title = $_GET["title"];
 			 $body = $_GET["body"];
+			 $topic = $_GET["topic"];
+			 
 			 $img = $_GET["img"];
          }
 		
@@ -22,7 +24,7 @@ header('Content-Type: application/json');
 		$id_token = $row['id_token'];
 		$token = $row['token'];
 		
-		$query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, id_token) VALUES('".$title."', '".$body."', '".$id_token."')");
+		$query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, topics, id_token) VALUES('".$title."', '".$body."', '".$topic."', '".$id_token."')");
          
             if($query_insert)
             {
