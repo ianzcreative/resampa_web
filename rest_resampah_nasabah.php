@@ -404,7 +404,7 @@ header('Content-Type: application/json');
          $nik = $_GET["nik_nasabah"];
       } 
      
-      $query = $connect->query("SELECT tbl_notifikasi.id_notifikasi, tbl_notifikasi.title, tbl_notifikasi.body FROM tbl_notifikasi LEFT JOIN tbl_token ON tbl_notifikasi.id_token = tbl_token.id_token LEFT JOIN tbl_nasabah ON tbl_token.id_nasabah = tbl_nasabah.id_nasabah WHERE nik_nasabah='".$nik."'");            
+      $query = $connect->query("SELECT tbl_notifikasi.id_notifikasi, tbl_notifikasi.title, tbl_notifikasi.body, tbl_notifikasi.topics, tbl_notifikasi.tanggal FROM tbl_notifikasi LEFT JOIN tbl_token ON tbl_notifikasi.id_token = tbl_token.id_token LEFT JOIN tbl_nasabah ON tbl_token.id_nasabah = tbl_nasabah.id_nasabah WHERE nik_nasabah='".$nik."'");            
       while($row=mysqli_fetch_object($query)) {
          $data[] =$row;
       }
