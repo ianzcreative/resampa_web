@@ -6,6 +6,39 @@ header('Content-Type: application/json');
          $_GET['function']();
       }
       
+
+   function login()
+   {
+      global $connect;      
+      $key = "12H6383H3";
+      
+      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["password_nasabah"]) && !empty($_GET["key"])) {
+         $username = $_GET["nik_nasabah"];
+         $password = $_GET["password_nasabah"];
+      } 
+     
+      $query = $connect->query("SELECT tbl_nasabah.id, tbl_nasabah.nik_nasabah, tbl_user_type.id_type FROM tbl_nasabah LEFT JOIN tbl_user_type ON tbl_nasabah.id_type = tbl_user_type.id_type WHERE tbl_nasabah.username_nasabah='".$username."' and tbl_nasabah.password_nasabah='".$password."'");            
+      while($row=mysqli_fetch_object($query)) {
+         $data[] =$row;
+      }
+      
+      if($data && $_GET["key"] == $key) {
+          
+        $response = array(
+                     'status' => 1,
+                     'message' =>'Success',
+                     'data' => $data
+                  );
+      } else {
+          
+        $response = array(
+                     'status' => 0,
+                     'message' =>'No Data Found'
+                  );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
       
    function get_keypair()
    {
@@ -68,39 +101,6 @@ header('Content-Type: application/json');
       header('Content-Type: application/json');
       echo json_encode($response);
    } 
-   
-   function get_login()
-   {
-      global $connect;      
-      $key = "12H6383H3";
-      
-      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["password_nasabah"]) && !empty($_GET["key"])) {
-         $nik = $_GET["nik_nasabah"];
-         $password = $_GET["password_nasabah"];
-      } 
-     
-      $query = $connect->query("SELECT app_users.id, app_users.nama as nama, app_users.email, app_users.no_hp, app_users.account_type, tipe_akun.nama as nama_tipe_akun, tipe_akun.keterangan FROM app_users LEFT JOIN tipe_akun ON app_users.account_type = tipe_akun.id_tipe WHERE email='".$email."' and password='".$password."'");            
-      while($row=mysqli_fetch_object($query)) {
-         $data[] =$row;
-      }
-      
-      if($data && $_GET["key"] == $key) {
-          
-        $response = array(
-                     'status' => 1,
-                     'message' =>'Success',
-                     'data' => $data
-                  );
-      } else {
-          
-        $response = array(
-                     'status' => 0,
-                     'message' =>'No Data Found'
-                  );
-      }
-      header('Content-Type: application/json');
-      echo json_encode($response);
-   }
 
    function get_nasabah()
    {
