@@ -639,6 +639,45 @@ header('Content-Type: application/json');
          echo json_encode($response);
       }
 
+   function update_token()
+      {
+         global $connect;
+         if (!empty($_GET["nik_nasabah"]) && !empty($_GET["token"])) {
+             $nik = $_GET["nik_nasabah"];
+             $token = $_GET["token"];
+         }
+         
+         $check = array('nik' => '', 'token' => '');
+         $check_match = count(array_intersect_key($_POST, $check));         
+         if($check_match == count($check)){
+         
+              $result = mysqli_query($connect, "UPDATE tbl_token LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_token.id_nasabah SET tbl_token.token = '$_POST[token]' WHERE tbl_nasabah.nik_nasabah='$_POST[nik]'");
+         
+            if($result)
+            {
+               $response=array(
+                  'status' => 1,
+                  'message' =>'Update Success'                  
+               );
+            }
+            else
+            {
+               $response=array(
+                  'status' => 0,
+                  'message' =>'Update Failed'                  
+               );
+            }
+         }else{
+            $response=array(
+                     'status' => 0,
+                     'message' =>'Wrong Parameter',
+                     'data'=> $id
+                  );
+         }
+         header('Content-Type: application/json');
+         echo json_encode($response);
+      }
+
    function update_saldo_transaksi_qr_owner()
       {
          global $connect;
