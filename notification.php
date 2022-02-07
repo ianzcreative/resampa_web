@@ -59,7 +59,7 @@ header('Content-Type: application/json');
 				'app_id' => '70d89de3-43b5-4949-81b5-64c9fe75306d',
 				"headings" => $headings,
 				'include_player_ids' => array($to),
-				'large_icon' => "https://www.google.co.in/images/branding/googleg/1x/googleg_standard_color_128dp.png",
+				'large_icon' => 'https://www.google.co.in/images/branding/googleg/1x/googleg_standard_color_128dp.png',
 				'content_available' => true,
 				'contents' => $content
 			);
@@ -73,7 +73,7 @@ header('Content-Type: application/json');
 				'include_player_ids' => array($to),
 				'contents' => $content,
 				"big_picture" => $img,
-				'large_icon' => "https://www.google.co.in/images/branding/googleg/1x/googleg_standard_color_128dp.png",
+				'large_icon' => 'https://www.google.co.in/images/branding/googleg/1x/googleg_standard_color_128dp.png',
 				'content_available' => true,
 				"ios_attachments" => $ios_img
 			);
