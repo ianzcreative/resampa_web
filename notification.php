@@ -15,7 +15,7 @@ header('Content-Type: application/json');
 			 $body = $_GET["body"];
 			 $topic = $_GET["topic"];
 			 
-			 $now = date_create()->format('Y-m-d');
+			 $now = date_create()->format('Y-m-d H:i:s');
 			 
 			 $img = $_GET["img"];
          }
