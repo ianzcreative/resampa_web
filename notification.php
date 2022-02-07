@@ -20,7 +20,7 @@ header('Content-Type: application/json');
 		
 		$token = $query_id->id_token;
          
-		 $query_insert = $connect->query("INSERT INTO tbl_notifikasi (title, body, id_token) VALUES('".$title."', '".$body."', '".$token."'");
+		 $query_insert = $connect->query("INSERT INTO tbl_notifikasi (title, body, id_token) VALUES('".$title."', '".$body."', '".$token."')");
          
             if($query_insert)
             {
