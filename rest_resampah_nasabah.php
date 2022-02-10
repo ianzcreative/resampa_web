@@ -463,7 +463,7 @@ header('Content-Type: application/json');
       $key = "12H6383H3";
       
       
-      $query = $connect->query("SELECT * FROM tbl_profil");            
+      $query = $connect->query("SELECT tbl_profil.subtitle_profil, tbl_profil.icon_profil, tbl_profil.intent_profil, tbl_kategori_profil.kategori_profil FROM tbl_profil LEFT JOIN  tbl_kategori_profil ON tbl_profil.id_kategori_profil = tbl_kategori_profil.id_kategori_profil");            
       while($row=mysqli_fetch_object($query)) {
          $data[] =$row;
       }
