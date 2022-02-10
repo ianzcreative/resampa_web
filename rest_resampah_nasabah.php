@@ -432,6 +432,9 @@ header('Content-Type: application/json');
    {
       global $connect;      
       $key = "12H6383H3";
+	   
+	  $resultArr = array();
+      $result = $connect->query("SELECT * FROM tbl_kategori_profil"); 
       
       if ($result->num_rows > 0 && $_GET["key"] == $key) {
             $resultArr = array('success' => true, 'total' => $result->num_rows);
