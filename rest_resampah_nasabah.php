@@ -441,7 +441,7 @@ header('Content-Type: application/json');
             while($row = $result->fetch_assoc()) {
                 $resultArr['data_kategori'][$row['id_kategori_profil']] = array('id_kategori_profil' => $row['id_kategori_profil'], 'kategori_profil' => $row['kategori_profil']);
 				
-                $sql2 = "SELECT tbl_profil.id_profil, tbl_profil.subtitle_profil, tbl_profil.icon_profil, tbl_profil.intent_profil, tbl_kategori_profil.kategori_profil AS kategori FROM tbl_profil LEFT JOIN  tbl_kategori_profil ON tbl_profil.id_kategori_profil = tbl_kategori_profil.id_kategori_profil WHERE tbl_profil.id_kategori_profil = '".$row['id_kategori_profil']."'";
+                $sql2 = "SELECT tbl_profil.id_profil, tbl_profil.subtitle_profil, tbl_profil.icon_profil, tbl_profil.intent_profil FROM tbl_profil LEFT JOIN  tbl_kategori_profil ON tbl_profil.id_kategori_profil = tbl_kategori_profil.id_kategori_profil WHERE tbl_profil.id_kategori_profil = '".$row['id_kategori_profil']."'";
                 $result2 = $connect->query($sql2);
                 while($row2 = $result2->fetch_assoc()) {
                     $resultArr['data_kategori'][$row['id_kategori_profil']]['data'][] = $row2;
