@@ -444,7 +444,7 @@ header('Content-Type: application/json');
                     $resultArr['data_kategori'][$row['id_kategori_profil']]['data'][] = $row2;
                 }
             }
-            $resultArr['data_transaksi'] = array_values($resultArr['data_transaksi']);
+            $resultArr['data_kategori'] = array_values($resultArr['data_kategori']);
         } else {
             $resultArr = array('success' => false, 'total' => 0);
         }
