@@ -428,42 +428,13 @@ header('Content-Type: application/json');
       echo json_encode($response);
    }
 
-   function get_kategori_profil()
-   {
-      global $connect;      
-      $key = "12H6383H3";
-      
-      
-      $query = $connect->query("SELECT tbl_profil.subtitle_profil, tbl_profil.icon_profil, tbl_profil.intent_profil, tbl_kategori_profil.kategori_profil FROM tbl_profil LEFT JOIN  tbl_kategori_profil ON tbl_profil.id_kategori_profil = tbl_kategori_profil.id_kategori_profil");            
-      while($row=mysqli_fetch_object($query)) {
-         $data[] =$row;
-      }
-      
-      if($data && $_GET["key"] == $key) {
-          
-        $response = array(
-                     'status' => 1,
-                     'message' =>'Success',
-                     'data' => $data
-                  );
-      } else {
-          
-        $response = array(
-                     'status' => 0,
-                     'message' =>'No Data Found'
-                  );
-      }
-      header('Content-Type: application/json');
-      echo json_encode($response);
-   }
-
    function get_profil()
    {
       global $connect;      
       $key = "12H6383H3";
       
       
-      $query = $connect->query("SELECT tbl_profil.subtitle_profil, tbl_profil.icon_profil, tbl_profil.intent_profil, tbl_kategori_profil.kategori_profil AS kategori FROM tbl_profil LEFT JOIN  tbl_kategori_profil ON tbl_profil.id_kategori_profil = tbl_kategori_profil.id_kategori_profil");            
+      $query = $connect->query("SELECT tbl_profil.id_profil, tbl_profil.subtitle_profil, tbl_profil.icon_profil, tbl_profil.intent_profil, tbl_kategori_profil.kategori_profil AS kategori FROM tbl_profil LEFT JOIN  tbl_kategori_profil ON tbl_profil.id_kategori_profil = tbl_kategori_profil.id_kategori_profil");            
       while($row=mysqli_fetch_object($query)) {
          $data[] =$row;
       }
