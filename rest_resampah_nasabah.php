@@ -277,16 +277,16 @@ header('Content-Type: application/json');
       } 
 
      $resultArr = array();
-      $result = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah, SUM(tbl_item_transaksi_sampah.jumlah_item_transaksi) AS qty_items FROM tbl_transaksi_sampah \n"
+      $result = $connect->query("SELECT tbl_transaksi_sampah.id_transaksi_sampah, tbl_transaksi_sampah.subtotal_transaksi_sampah, tbl_transaksi_sampah.tgl_transaksi_sampah, tbl_transaksi_sampah.catatan_transaksi_sampah, tbl_transaksi_sampah.id_nasabah, tbl_transaksi_sampah.id_unit_desa, tbl_unit_desa.id_desa, SUM(tbl_item_transaksi_sampah.jumlah_item_transaksi) AS qty_items FROM tbl_transaksi_sampah \n"
 
-    . "JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah JOIN tbl_item_transaksi_sampah ON tbl_transaksi_sampah.id_transaksi_sampah = tbl_item_transaksi_sampah.id_transaksi_sampah WHERE tbl_nasabah.nik_nasabah ='".$nik."' GROUP BY id_transaksi_sampah ORDER BY id_transaksi_sampah DESC"); 
+    . "LEFT JOIN tbl_unit_desa ON tbl_transaksi_sampah.id_unit_desa = tbl_unit_desa.id_unit_desa JOIN tbl_nasabah ON tbl_transaksi_sampah.id_nasabah = tbl_nasabah.id_nasabah JOIN tbl_item_transaksi_sampah ON tbl_transaksi_sampah.id_transaksi_sampah = tbl_item_transaksi_sampah.id_transaksi_sampah WHERE tbl_nasabah.nik_nasabah ='".$nik."' GROUP BY id_transaksi_sampah ORDER BY id_transaksi_sampah DESC"); 
    //  $result = $conn->query($query); 
 	     
       
         if ($result->num_rows > 0 && $_GET["key"] == $key) {
             $resultArr = array('success' => true, 'total' => $result->num_rows);
             while($row = $result->fetch_assoc()) {
-                $resultArr['data_transaksi'][$row['id_transaksi_sampah']] = array('id_transaksi_sampah' => $row['id_transaksi_sampah'], 'subtotal_transaksi_sampah' => $row['subtotal_transaksi_sampah'], 'tgl_transaksi_sampah' => $row['tgl_transaksi_sampah'], 'catatan_transaksi_sampah' => $row['catatan_transaksi_sampah'], 'id_nasabah' => $row['id_nasabah'], 'qty_items' => $row['qty_items']);
+                $resultArr['data_transaksi'][$row['id_transaksi_sampah']] = array('id_transaksi_sampah' => $row['id_transaksi_sampah'], 'id_unit_desa' => $row['id_unit_desa'], 'id_desa' => $row['id_desa'], 'subtotal_transaksi_sampah' => $row['subtotal_transaksi_sampah'], 'tgl_transaksi_sampah' => $row['tgl_transaksi_sampah'], 'catatan_transaksi_sampah' => $row['catatan_transaksi_sampah'], 'id_nasabah' => $row['id_nasabah'], 'qty_items' => $row['qty_items']);
 
                 //Anwser table results
                 $sql2 = "SELECT tbl_sampah.nama_sampah, tbl_sampah.harga_sampah, tbl_kategori_sampah.nama_kategori_sampah, tbl_item_transaksi_sampah.jumlah_item_transaksi FROM tbl_item_transaksi_sampah JOIN tbl_sampah ON tbl_item_transaksi_sampah.id_sampah = tbl_sampah.id_sampah JOIN tbl_kategori_sampah ON tbl_kategori_sampah.id_kategori_sampah = tbl_sampah.id_kategori_sampah WHERE tbl_item_transaksi_sampah.id_transaksi_sampah = '".$row['id_transaksi_sampah']."'";
@@ -405,7 +405,43 @@ header('Content-Type: application/json');
 		 $topic = $_GET["topic"];
       } 
      
-      $query = $connect->query("SELECT tbl_notifikasi.id_notifikasi, tbl_notifikasi.title, tbl_notifikasi.body, tbl_notifikasi.topics, tbl_notifikasi.tanggal FROM tbl_notifikasi LEFT JOIN tbl_token ON tbl_notifikasi.id_token = tbl_token.id_token LEFT JOIN tbl_nasabah ON tbl_token.id_nasabah = tbl_nasabah.id_nasabah WHERE nik_nasabah ='".$nik."' AND tbl_notifikasi.topics = '".$topic."' ORDER BY tanggal DESC");            
+     if ($_GET["topic"] == 'informasi'){
+       $query = $connect->query("SELECT id_notifikasi, title, body, topics, tanggal FROM tbl_notifikasi WHERE topics = 'informasi' ORDER BY tanggal DESC");
+     } else {
+       $query = $connect->query("SELECT tbl_notifikasi.id_notifikasi, tbl_notifikasi.title, tbl_notifikasi.body, tbl_notifikasi.topics, tbl_notifikasi.tanggal FROM tbl_notifikasi LEFT JOIN tbl_token ON tbl_notifikasi.id_token = tbl_token.id_token LEFT JOIN tbl_nasabah ON tbl_token.id_nasabah = tbl_nasabah.id_nasabah WHERE nik_nasabah ='".$nik."' AND tbl_notifikasi.topics = '".$topic."' ORDER BY tanggal DESC");  
+     }
+      while($row=mysqli_fetch_object($query)) {
+         $data[] =$row;
+      }
+      
+      if($data && $_GET["key"] == $key) {
+          
+        $response = array(
+                     'status' => 1,
+                     'message' =>'Success',
+                     'data' => $data
+                  );
+      } else {
+          
+        $response = array(
+                     'status' => 0,
+                     'message' =>'No Data Found'
+                  );
+      }
+      header('Content-Type: application/json');
+      echo json_encode($response);
+   }
+   
+   function get_points()
+   {
+      global $connect;      
+      $key = "12H6383H3";
+      
+      if (!empty($_GET["nik_nasabah"]) && !empty($_GET["key"])) {
+         $nik = $_GET["nik_nasabah"];
+      } 
+      
+      $query = $connect->query("SELECT SUM(tbl_poin_nasabah.jumlah_poin) as jumlah_poin FROM tbl_poin_nasabah LEFT JOIN tbl_nasabah ON tbl_poin_nasabah.id_nasabah = tbl_nasabah.id_nasabah WHERE tbl_nasabah.nik_nasabah = '".$nik."'");            
       while($row=mysqli_fetch_object($query)) {
          $data[] =$row;
       }
@@ -455,124 +491,7 @@ header('Content-Type: application/json');
         echo json_encode($resultArr);
    }
       
-   function get_provinsi()
-   {
-      global $connect;      
-      $key = "12H6383H3";
-      
-      
-      $query = $connect->query("SELECT DISTINCT prov FROM option_provinsi");            
-      while($row=mysqli_fetch_object($query)) {
-         $data[] =$row;
-      }
-      
-      if($data && $_GET["key"] == $key) {
-          
-        $response = array(
-                     'status' => 1,
-                     'message' =>'Success',
-                     'data' => $data
-                  );
-      } else {
-          
-        $response = array(
-                     'status' => 0,
-                     'message' =>'No Data Found'
-                  );
-      }
-      header('Content-Type: application/json');
-      echo json_encode($response);
-   }
    
-   
-   function get_kecamatan()
-   {
-      global $connect;
-      $key = "12H6383H3";
-      
-      if (!empty($_GET["asal"]) && !empty($_GET["key"])) {
-         $asal = $_GET["asal"];
-      }            
-      $query ="SELECT DISTINCT tujuan FROM option_harga WHERE tujuan LIKE '".$asal."%'";      
-      $result = $connect->query($query);
-      while($row = mysqli_fetch_object($result))
-      {
-         $data[] = $row;
-      }            
-      if($data && $_GET["key"] == $key)
-      {
-      $response = array(
-                     'data' => $data
-                  );               
-      }else {
-         $response=array(
-                     'status' => 0,
-                     'message' =>'No Data Found'
-                  );
-      }
-      
-      echo json_encode($response);
-   }
-   
-   function get_kota()
-   {
-      global $connect;
-      $key = "12H6383H3";
-      
-      if (!empty($_GET["asal"]) && !empty($_GET["key"])) {
-         $asal = $_GET["asal"];
-      }            
-      $query ="SELECT DISTINCT kota FROM option_harga WHERE kota LIKE '".$asal."%'";      
-      $result = $connect->query($query);
-      while($row = mysqli_fetch_object($result))
-      {
-         $data[] = $row;
-      }            
-      if($data && $_GET["key"] == $key)
-      {
-      $response = array(
-                     'data' => $data
-                  );               
-      }else {
-         $response=array(
-                     'status' => 0,
-                     'message' =>'No Data Found'
-                  );
-      }
-      
-      echo json_encode($response);
-   }
-   
-   function get_count_pengiriman()
-   {
-      global $connect;
-      $key = "12H6383H3";
-      
-      if (!empty($_GET["id"]) && !empty($_GET["status"]) && !empty($_GET["key"])) {
-         $id = $_GET["id"];
-         $status = $_GET["status"];
-      }            
-      $query ="SELECT COUNT(resi_id) as count_pengiriman FROM parsel WHERE user_id = '".$id."' and status_id = '".$status."'";      
-      $result = $connect->query($query);
-      while($row = mysqli_fetch_object($result))
-      {
-         $data[] = $row;
-      }            
-      if($data && $_GET["key"] == $key)
-      {
-      $response = array(
-                     'data' => $data
-                  );               
-      }else {
-         $response=array(
-                     'status' => 0,
-                     'message' =>'No Data Found'
-                  );
-      }
-      
-      echo json_encode($response);
-   }
-
    function get_informasi()
    {
       global $connect;      
@@ -601,62 +520,6 @@ header('Content-Type: application/json');
       header('Content-Type: application/json');
       echo json_encode($response);
    }  
-   
-   function insert_register()
-   {
-     global $connect;   
-     $check = array('nama' => '', 'email' => '', 'password' => '', 'no_hp' => '', 'ipaddress' => '', 'device' => '', 'device_number' => '', 'account_type' => '');
-     $check_match = count(array_intersect_key($_POST, $check));
-    
-     if($check_match == count($check)){
-    
-    	   $result = mysqli_query($connect, "INSERT INTO app_users (nama,email,password,no_hp,ipaddress,device,device_number,account_type) VALUES('$_POST[nama]','$_POST[email]','$_POST[password]','$_POST[no_hp]','$_POST[ipaddress]','$_POST[device]','$_POST[device_number]','$_POST[account_type]')");
-    
-    	   if($result)
-    	   {
-    		  $response='success';
-    	   }
-    	   else
-    	   {
-    		  $response='failed';
-    	   }
-     }else{
-    	$response=array(
-    			 'status' => 0,
-    			 'message' =>'Wrong Parameter'
-    		  );
-     }
-     header('Content-Type: application/json');
-     echo json_encode($response);
-   }
-   
-   function insert_alamat()
-   {
-     global $connect;   
-     $check = array('id_pengguna' => '', 'alias' => '', 'no_hp' => '', 'jalan' => '', 'kecamatan' => '', 'provinsi' => '', 'kode_pos' => '', 'type' => '');
-     $check_match = count(array_intersect_key($_POST, $check));
-    
-     if($check_match == count($check)){
-    
-    	   $result = mysqli_query($connect, "INSERT INTO alamat (id_pengguna,alias,no_hp,jalan,kecamatan,provinsi,kode_pos,type) VALUES('$_POST[id_pengguna]','$_POST[alias]','$_POST[no_hp]','$_POST[jalan]','$_POST[kecamatan]','$_POST[provinsi]','$_POST[kode_pos]','$_POST[type]')");
-    
-    	   if($result)
-    	   {
-    		  $response='success';
-    	   }
-    	   else
-    	   {
-    		  $response='failed';
-    	   }
-     }else{
-    	$response=array(
-    			 'status' => 0,
-    			 'message' =>'Wrong Parameter'
-    		  );
-     }
-     header('Content-Type: application/json');
-     echo json_encode($response);
-   }
    
    
    function update_user_login()

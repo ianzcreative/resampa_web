@@ -11,36 +11,34 @@ date_default_timezone_set('Asia/Jakarta');
 	function send_notif_to_nasabah()
 	{
 		 global $connect;
+		 
+		 $now = date('Y-m-d H:i:s');
+		 
          if (!empty($_GET["nik_nasabah"]) && !empty($_GET["title"]) && !empty($_GET["body"]) && !empty($_GET["topic"])) {
              $nik = $_GET["nik_nasabah"];
 			 $title = $_GET["title"];
 			 $body = $_GET["body"];
 			 $topic = $_GET["topic"];
 			 
-			 $now = date_create()->format('Y-m-d H:i:s');
-			 
 			 $img = $_GET["img"];
          }
 		
-		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_token.id_nasabah WHERE tbl_nasabah.nik_nasabah='".$nik."'");
-		$row = mysqli_fetch_assoc($query_id);
+		 $query_id = $connect->query("SELECT tbl_token.id_token, tbl_token.token FROM tbl_token LEFT JOIN tbl_nasabah ON tbl_nasabah.id_nasabah = tbl_token.id_nasabah WHERE tbl_nasabah.nik_nasabah = '".$nik."'");
+		 while($row = mysqli_fetch_object($query_id)) {
+           $id_token = $row->id_token;
+           $token = $row->token;
+         }
 		
-		$id_token = $row['id_token'];
-		$token = $row['token'];
-		
-		$query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, topics, tanggal, id_token) VALUES('".$title."', '".$body."', '".$topic."', '".$now."', '".$id_token."')");
+	   	 $query_insert = mysqli_query($connect, "INSERT INTO tbl_notifikasi (title, body, topics, tanggal, id_token) VALUES('$_GET[title]', '$_GET[body]', '$_GET[topic]', '$now', '$id_token')");
          
-            if($query_insert)
-            {
+            if($query_insert) {
                $response = array(
                   'status' => 1,
                   'message' =>'Send Notification Success'                  
                );
 				
 			   send_notification($token, $title, $body, $img);
-            }
-            else
-            {
+            } else {
                $response = array(
                   'status' => 0,
                   'message' =>'Send Notification Failed'                  
@@ -88,7 +86,7 @@ date_default_timezone_set('Asia/Jakarta');
 
 		}
 		$headers = array(
-			'Authorization: key=OTQwNGU1YTMtNmI1NS00ZWM0LWI0ZjItZjMyZjAwYTk5YzA2',
+			'Authorization: key=M2FkN2U3ODYtNDQyMy00NjVmLWExNTctODc5MDU5M2RkNjU1',
 			'Content-Type: application/json; charset=utf-8'
 		);
 		$ch = curl_init();
